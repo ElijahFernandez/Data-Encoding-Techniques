@@ -5,30 +5,11 @@ import matplotlib.pyplot as plt
 
 
 def nrz_l(data):
-    """
-    Implement the Non-Return-to-Zero Level (NRZ-L) encoding technique.
-
-    Args:
-        data (np.ndarray): Binary data stream.
-
-    Returns:
-        np.ndarray: NRZ-L encoded signal.
-    """
     signal = np.where(data == 0, -1, 1)
     return signal
 
 
 def nrz_i(data):
-    """
-    Implement the Non-Return-to-Zero Inverted (NRZ-I) encoding technique
-    with the given constraints.
-
-    Args:
-        data (np.ndarray): Binary data stream.
-
-    Returns:
-        np.ndarray: NRZ-I encoded signal.
-    """
     signal = np.zeros(len(data), dtype=int)
     current_level = -1 if data[0] == 0 else 1  # Start at bottom if first bit is 0, otherwise start with a transition
 
@@ -43,16 +24,6 @@ def nrz_i(data):
 
 
 def bipolar_ami(data):
-    """
-    Implement the Bipolar Alternate Mark Inversion (Bipolar AMI) encoding technique
-    with the specified constraints.
-
-    Args:
-        data (np.ndarray): Binary data stream.
-
-    Returns:
-        np.ndarray: Bipolar AMI encoded signal.
-    """
     signal = np.zeros(len(data), dtype=int)
     current_level = 1  # Start with a positive level for the first 1 bit
 
@@ -66,15 +37,6 @@ def bipolar_ami(data):
 
 
 def pseudoternary(data):
-    """
-    Implement the Pseudoternary encoding technique with the specified constraints.
-
-    Args:
-        data (np.ndarray): Binary data stream.
-
-    Returns:
-        np.ndarray: Pseudoternary encoded signal.
-    """
     signal = np.zeros(len(data), dtype=int)
     current_level = 1  # Start with a positive level for the first 0 bit
 
@@ -88,15 +50,6 @@ def pseudoternary(data):
 
 
 def manchester(data):
-    """
-     Implement Manchester encoding with transitions exactly at the midpoint of each bit.
-
-     Args:
-         data (np.ndarray): Binary data stream.
-
-     Returns:
-         tuple: x-values and y-values for precise Manchester encoding plot.
-     """
     x_values = []
     y_values = []
 
@@ -119,15 +72,6 @@ def manchester(data):
 
 
 def differential_manchester(data):
-    """
-    Implement Differential Manchester encoding.
-
-    Args:
-        data (np.ndarray): Binary data stream.
-
-    Returns:
-        tuple: x-values and y-values for Differential Manchester encoding plot.
-    """
     x_values = []
     y_values = []
 
@@ -158,7 +102,6 @@ def differential_manchester(data):
     return x_values, y_values
 
 
-# Example usage
 binary_data = np.array([0, 1, 0, 0, 1, 1, 1, 0])
 
 nrz_l_signal = nrz_l(binary_data)

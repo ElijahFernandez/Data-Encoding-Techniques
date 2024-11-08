@@ -5,18 +5,17 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.animation import FuncAnimation
 from encoding_methods import nrz_l, nrz_i, bipolar_ami, pseudoternary, manchester, differential_manchester
 
-ctk.set_appearance_mode("System")  # Modes: "System" (default), "Dark", "Light"
-ctk.set_default_color_theme("blue")  # Themes: "blue" (default), "green", "dark-blue"
+ctk.set_appearance_mode("System")
+ctk.set_default_color_theme("blue")
 
 
 def show_info():
     info_window = ctk.CTkToplevel(app)
     info_window.title("Encoding Techniques Guide")
-    info_window.geometry("500x450")  # Adjust size as needed
-    info_window.transient(app)  # Keep window in front of the main window
-    info_window.focus_set()  # Give the info window focus
+    info_window.geometry("500x450")
+    info_window.transient(app)
+    info_window.focus_set()
 
-    # Guide content with improved formatting
     guide_text = (
         "-- Digital Data Encoding Techniques Guide --\n"
         "Jose Elijah M. Fernandez | BSCS - 4 \n"
@@ -42,7 +41,6 @@ def show_info():
         "   • Always transitions at center\n"
     )
 
-    # Create and display the guide label with left alignment
     info_label = ctk.CTkLabel(info_window, text=guide_text, anchor="w", justify="left")
     info_label.pack(padx=10, pady=10, fill="both")
 
@@ -52,7 +50,7 @@ class EncodingApp(ctk.CTk):
         super().__init__()
         self.title("Encoding Visualization")
         self.geometry("800x600")
-        self.resizable(False, False)  # Lock window size
+        self.resizable(False, False)
 
         # Menu bar
         self.menu_frame = ctk.CTkFrame(self, height=30, width=600, corner_radius=0)
@@ -78,13 +76,12 @@ class EncodingApp(ctk.CTk):
         self.plot_button = ctk.CTkButton(self, text="Animate Encoding", command=self.animate_encoding)
         self.plot_button.pack(pady=20)
 
-        # Canvas for matplotlib figure
-        self.figure = plt.Figure(figsize=(8, 4))  # Increase figure size
+        self.figure = plt.Figure(figsize=(8, 4))
         plt.grid(True)
         self.canvas = FigureCanvasTkAgg(self.figure, self)
-        self.canvas.get_tk_widget().pack(fill="both", expand=True, padx=10, pady=20)  # Fill more space in the window
+        self.canvas.get_tk_widget().pack(fill="both", expand=True, padx=10, pady=20)
 
-        self.anim = None  # Initialize animation object
+        self.anim = None
 
     def animate_encoding(self):
         # Stop any existing animation before starting a new one
@@ -110,15 +107,14 @@ class EncodingApp(ctk.CTk):
             return
 
         encoding = self.selected_encoding.get()
-        self.figure.clf()  # Clear previous plot
+        self.figure.clf()
         ax = self.figure.add_subplot(111)
         ax.set_xticks(range(len(data)))
-        ax.set_xticklabels(data)  # Display binary data as x-ticks
-        ax.get_yaxis().set_visible(False)  # Remove Y-axis coordinates
+        ax.set_xticklabels(data)
+        ax.get_yaxis().set_visible(False)
         ax.set_ylim(-1.5, 1.5)
         ax.grid(True)
 
-        # Select the encoding function based on the user selection
         if encoding == "NRZ-L":
             signal = nrz_l(data)
             ax.set_title("NRZ-L Encoding")
@@ -147,7 +143,6 @@ class EncodingApp(ctk.CTk):
             self.animated_plot(ax, x_values, y_values)
             return
 
-        # Animate the plot for NRZ-L, NRZ-I, Bipolar AMI, and Pseudoternary encodings
         self.animated_plot(ax, range(len(signal)), signal)
 
     def animated_plot(self, ax, x_values, y_values):
@@ -161,22 +156,20 @@ class EncodingApp(ctk.CTk):
         # Function to restart the animation after it completes
         def restart_animation():
             self.anim.event_source.stop()
-            self.after(2000, lambda: self.anim.event_source.start())  # Wait 2 seconds before restarting
+            self.after(2000, lambda: self.anim.event_source.start())
 
-        # Run the animation with an interval between frames
         self.anim = FuncAnimation(self.figure, update, frames=len(x_values) + 1, interval=300, blit=True, repeat=True)
-        self.anim._stop = restart_animation  # Set the custom stop function
-        self.canvas.draw()  # Update the canvas with the animated plot
+        self.anim._stop = restart_animation
+        self.canvas.draw()
 
     def show_error(self, message):
         error_window = ctk.CTkToplevel(self)
         error_window.title("Error")
         error_window.geometry("300x100")
-        error_window.transient(self)  # Make the window stay in front of the main window
-        error_window.grab_set()  # Make the error window modal
-        error_window.focus_set()  # Give the error window focus
+        error_window.transient(self)
+        error_window.grab_set()
+        error_window.focus_set()
 
-        # Center the error window relative to the main window
         x = self.winfo_x() + (self.winfo_width() // 2) - (300 // 2)
         y = self.winfo_y() + (self.winfo_height() // 2) - (100 // 2)
         error_window.geometry(f"300x100+{x}+{y}")
