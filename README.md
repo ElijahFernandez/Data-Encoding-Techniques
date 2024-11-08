@@ -17,8 +17,8 @@ The application is built with:
 ## Getting Started
 
 1. Navigate to this repository: [Data-Encoding-Techniques](https://github.com/ElijahFernandez/Data-Encoding-Techniques/tree/main).
-2. Go to the following directory: `build/ctk`.
-3. Locate and download the file named `ctk2.exe`.
+2. Go to the following directory: `dist`.
+3. Locate and download the file named `FernandezJoseElijah_LabExer9.exe`.
 4. Run `ctk2.exe` to launch the application.
 
 ## Features
